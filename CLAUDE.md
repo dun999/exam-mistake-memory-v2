@@ -6,7 +6,13 @@ permanent record stored on Walrus.
 
 ## First run vs returning session
 
-If `memwal_recall` comes back empty across all my namespaces:
+**Every recall must name its namespace.** `memwal_recall` searches one bucket and never spans buckets, so a
+call without a `namespace` argument searches the default session bucket and returns nothing — even when every
+record is present. An empty namespace-less recall is not evidence that memory is empty, and must never be
+treated as one. There is also no operation that lists which namespaces exist, so the names in *Namespaces*
+below are the only index there is: use them exactly.
+
+If `memwal_recall`, called **with each namespace named explicitly**, comes back empty across all of them:
 
 1. Run `memwal_health` first — a lightweight connectivity check that doesn't touch search or decryption. If it
    fails, the relayer may be unreachable; wait a few seconds and retry once, then tell me plainly if it's still down.
@@ -15,7 +21,9 @@ If `memwal_recall` comes back empty across all my namespaces:
 3. If I've studied before and this should be a returning session, don't assume the data is gone. Run
    `memwal_restore` on the namespace to rebuild the search index from Walrus, then recall again. `restore` only
    returns a count; always follow it with an actual `recall` to confirm the index works.
-4. Only after all three steps say memory genuinely isn't working should you tell me setup is broken and what to check.
+4. Only after all three steps say memory genuinely isn't working should you tell me setup is broken and what to
+   check. **Never re-seed on a suspicion.** Writes cannot be undone, so a wrong "memory is empty" diagnosis
+   permanently doubles the record. Ask me before writing anything that already exists.
 
 Skip this check once a session has confirmed memory is live; don't re-verify every new chat.
 
