@@ -265,8 +265,44 @@ This one applies to the original prompt too, so it's going upstream as a GitHub 
 
 ## Evidence of use
 
-_To be filled after the trial run — session screenshots, the briefing output, and the mistake codes that
-accumulated._
+Two `ASK` sessions were run end to end on 2026-08-20.
+
+**14 records across 9 distinct codes.** Four were seeded before the first session — three `curriculum`
+topics and one `exam-intel` note that Lesen was already banked — so **10 were written by the agent
+itself**, none of them requested. Nothing is ever edited or removed: a correction is a new complete
+record layered on top of the old one, which is why 9 codes account for 14 records.
+
+| Namespace | Records | Distinct codes |
+|---|---:|---:|
+| `curriculum` | 5 | 3 |
+| `wortschatz` | 4 | 2 |
+| `schreiben` | 3 | 2 |
+| `exam-intel` | 2 | 2 |
+| **Total** | **14** | **9** |
+
+Session 1 wrote 6 records, session 2 wrote 4. The second session wrote fewer because most of what
+happened in it was not new — three codes already existed and moved up a level, which is an append,
+not a discovery.
+
+The codes that accumulated:
+
+```
+schreiben.praeposition.wechsel-wo-dativ                    Level 1 → 2
+schreiben.wortstellung.hauptsatz-nach-vorfeld-nebensatz    Level 1 (unchanged)
+wortschatz.reflexiv.sich-konzentrieren                     Level 1 → 2
+wortschatz.kollokation.benutzen-als-funktion               Level 1 → 2
+curriculum.wechselpraepositionen                           tested
+curriculum.nebensatz-wortstellung                          tested + 1 free hit
+curriculum.perfekt-hilfsverb                               never asked, never decided
+exam-intel                                                 Lesen banked, exam date
+```
+
+Two of those lines are the point of the whole design.
+`schreiben.wortstellung.hauptsatz-nach-vorfeld-nebensatz` did **not** advance, because the specific
+configuration that failed the first time never reappeared — three sessions of drills would have logged
+that as "improving". And `curriculum.perfekt-hilfsverb` stayed at `tested: never` because no
+Bewegungsverb appeared in the writing, so haben-vs-sein was never actually decided. Neither outcome is
+flattering, and both are correct.
 
 ## Credits
 
